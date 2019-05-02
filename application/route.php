@@ -5,8 +5,8 @@
 use think\Route;
 Route::get([
     '/' =>  'Index/home',
-    'new/:id'  =>  'News/read',
-    '/upload' =>  'Index/upload'
+    '/upload' =>  'Index/upload',
+    'new/:id'  =>  'News/read'
 ]);
 Route::post([
     '/uploads' =>  'Index/uploads'

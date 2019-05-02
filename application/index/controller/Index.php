@@ -1,6 +1,6 @@
 <?php
 namespace app\index\controller;
-
+use \think\Cookie;
 class Index extends \think\Controller
 {
     public function index()
@@ -19,21 +19,32 @@ class Index extends \think\Controller
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('image');
         if($file){
-            // 移动到框架应用根目录/public/uploads/ 目录下
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'upfiles');
+            // 移动到框架应用根目录/public/static/uploads/ 目录下
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'static' . DS . 'upfiles');
             if($info){
-                // 成功上传后 获取上传信息
-                echo $info->getExtension(); // 文件后缀
-                echo $info->getSaveName(); // 文件路径
-                echo $info->getFilename(); // 文件名称
-                echo '<br>';
-                echo ROOT_PATH . 'public' . DS . 'upfiles' . $info->getSaveName();
-                echo '<br>';
-                echo 'public' . DS . 'upfiles'. DS . $info->getSaveName();
+                // echo ROOT_PATH . 'public' . DS . 'static' . DS . 'upfiles' . $info->getSaveName();
+                $url = DS . 'upfiles'. DS . $info->getSaveName();
+                // $url = str_ireplace($url, '\\', '/');
+                return json(['code'=>'0', 'data' => ['url' => $url],'message'=>'上传成功']);
             }else{
                 // 上传失败获取错误信息
-                echo $file->getError();
+                // echo $file->getError();
+                return json(['code'=>'1', 'data' => ['url' => ''],'message'=>'上传失败哦~']);
             }
         }
+    }
+    /**
+     * 设置cookie
+     */
+    public function setCookie()
+    {
+        // 设置Cookie 有效期为 3600秒
+        Cookie::set('name','value',3600);
+        return json(['code'=>'0','message'=>'设置成功']);
+    }
+    public function getCookie()
+    {
+        $cookie = Cookie::get('username');
+        return str_ireplace('//78877//', '//', '/');
     }
 }

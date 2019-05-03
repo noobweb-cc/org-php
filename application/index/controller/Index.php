@@ -42,7 +42,7 @@ class Index extends \think\Controller
     }
     public function getCookie ()
     {
-        $cookie = Cookie::get('name');
+        $cookie = Cookie::get('jiajia');
         return json(['code'=>'1', 'message'=>$cookie]);
     }
     public function login ()

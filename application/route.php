@@ -7,9 +7,10 @@ Route::get([
     '/' =>  'Index/home',
     '/upload' =>  'Index/upload',
     'new/:id'  =>  'News/read',
-    '/setCookie' =>  'Index/setCookie',
-    '/getCookie' =>  'Index/getCookie'
-]);
+    '/setCookie' =>  'Index/setCookie'
+])
+Route::get(['/getCookie' =>  'Index/getCookie'])
+    ->allowCrossDomain();
 Route::post([
     '/uploads' =>  'Index/uploads'
 ]);

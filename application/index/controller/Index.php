@@ -1,6 +1,7 @@
 <?php
 namespace app\index\controller;
 use \think\Cookie;
+use \think\Db;
 class Index extends \think\Controller
 {
     public function index()
@@ -31,15 +32,16 @@ class Index extends \think\Controller
     /**
      * 设置cookie
      */
-    public function setCookie()
+    public function setCookie ()
     {
         // 设置Cookie 有效期为 3600秒
         Cookie::set('name','value',3600);
         return json(['code'=>'0','message'=>'设置成功']);
     }
-    public function getCookie()
+    public function getCookie ()
     {
-        $cookie = Cookie::get('username');
-        return str_ireplace('//78877//', '//', '/');
+        // $cookie = Cookie::get('username');
+        $data = Db::table('org_user')->where('id', 2)->select();
+        return json(['code'=>'1', 'data' => $data,'message'=>'上传失败哦~']);
     }
 }

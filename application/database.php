@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '39.107.125.143',
+    'hostname'        => '115.159.149.177',
     // 数据库名
-    'database'        => 'org',
+    'database'        => 'db_hongfei',
     // 用户名
-    'username'        => 'root',
+    'username'        => 'xuw',
     // 密码
-    'password'        => 'kSIG3fA4vTt#XYko',
+    'password'        => 'xuw@123',
     // 端口
     'hostport'        => '3306',
     // 连接dsn

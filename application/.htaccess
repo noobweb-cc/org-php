@@ -1,2 +1,1 @@
 deny from all
-RewriteCond $1 !^(upfiles)

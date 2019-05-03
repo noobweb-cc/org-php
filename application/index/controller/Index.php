@@ -42,9 +42,8 @@ class Index extends \think\Controller
     }
     public function getCookie ()
     {
-        // $cookie = Cookie::get('username');
-        $data = Db::table('org_user')->where('id', 2)->select();
-        return json(['code'=>'1', 'data' => $data,'message'=>'上传失败哦~']);
+        $cookie = Cookie::get('name');
+        return json(['code'=>'1', 'message'=>$cookie]);
     }
     public function login ()
     {

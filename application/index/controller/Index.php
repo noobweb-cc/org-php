@@ -2,6 +2,8 @@
 namespace app\index\controller;
 use \think\Cookie;
 use \think\Db;
+use \think\Request;
+
 class Index extends \think\Controller
 {
     public function index()
@@ -43,5 +45,20 @@ class Index extends \think\Controller
         // $cookie = Cookie::get('username');
         $data = Db::table('org_user')->where('id', 2)->select();
         return json(['code'=>'1', 'data' => $data,'message'=>'上传失败哦~']);
+    }
+    public function login ()
+    {
+        header('Access-Control-Allow-Origin:*'); // *代表允许任何网址请求
+        $request = Request::instance();
+        $param = $request->param();
+        $name = $param['name'];
+        $passwd = $param['passwd'];
+        $find = Db::table('org_user')->where('name', $name)->find();
+        if (md5($passwd) == $find['psd']) {
+            Cookie::set('name', $find['psd'], 3600);
+            return json(['code'=>'0', 'message'=>'登录正确~']);
+        } else {
+            return json(['code'=>'1', 'message'=>'登录错误~']);
+        }
     }
 }

@@ -54,7 +54,7 @@ class Index extends \think\Controller
         $passwd = $param['passwd'];
         $find = Db::table('org_user')->where('name', $name)->find();
         if (md5($passwd) == $find['psd']) {
-            Cookie::set('name', $find['psd'], 3600);
+            Cookie::set($name, $find['psd'], 3600);
             return json(['code'=>'0', 'message'=>'登录正确~']);
         } else {
             return json(['code'=>'1', 'message'=>'登录错误~']);

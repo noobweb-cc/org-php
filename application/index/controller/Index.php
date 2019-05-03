@@ -15,20 +15,15 @@ class Index extends \think\Controller
     {
         return $this->fetch('upload/index');
     }
-    public function uploads(){
-        // 获取表单上传文件 例如上传了001.jpg
+    public function uploads () {
         $file = request()->file('image');
         if($file){
             // 移动到框架应用根目录/public/static/uploads/ 目录下
             $info = $file->move(ROOT_PATH . 'public' . DS . 'static' . DS . 'upfiles');
             if($info){
-                // echo ROOT_PATH . 'public' . DS . 'static' . DS . 'upfiles' . $info->getSaveName();
                 $url = DS . 'upfiles'. DS . $info->getSaveName();
-                // $url = str_ireplace($url, '\\', '/');
                 return json(['code'=>'0', 'data' => ['url' => $url],'message'=>'上传成功']);
             }else{
-                // 上传失败获取错误信息
-                // echo $file->getError();
                 return json(['code'=>'1', 'data' => ['url' => ''],'message'=>'上传失败哦~']);
             }
         }

@@ -1,6 +1,7 @@
 <?php
 namespace app\index\controller;
 use \think\Cookie;
+use \think\Session;
 use \think\Db;
 use \think\Request;
 
@@ -40,34 +41,41 @@ class Index extends \think\Controller
         Cookie::set('name','value',3600);
         return json(['code'=>'0','message'=>'设置成功']);
     }
+    public function clearCookie ()
+    {
+        Cookie::delete('name');
+        Cookie::delete('value');
+        return json(['code'=>'0','message'=>'清除成功']);
+    }
     public function getCookie ()
     {
         $cookie = Cookie::get('name');
         return json(['code'=>'1', 'message'=>$cookie]);
     }
-    public function checkpwd ($name, $value, $isCookie=true)
+
+    public function loginOut()
     {
-        $find = Db::table('org_user')->where('name', $name)->find();
-        $isRight = !$isCookie ? md5($value) == $find['psd'] : $value == $find['psd'];
-        if ($isRight) {
-            Cookie::set('name', $find['name'], 3600);
-            Cookie::set('value', $find['psd'], 3600);
-            return json(['code'=>'0', 'message'=>'登录正确~']);
-        } else {
-            return json(['code'=>'1', 'message'=>'登录错误~']);
-        }
+        // clearSession
+        Session::delete('name');
+        return json(['code'=>'0', 'message'=>'登出成功']);
     }
+
     public function login ()
     {
         header('Access-Control-Allow-Origin:*');
-        $cookieName = Cookie::get('name');
-        if (empty($cookieName)) {
+        $sessionName = Session::get('name');
+        if (empty($sessionName)) {
             $request = Request::instance();
             $param = $request->param();
-            return $this->checkpwd($param['name'], $param['passwd'], false);
+            $find = Db::table('org_user')->where(['name'=>$param['name'],'psd'=>md5($param['passwd'].'x!S')])->find();
+            if ($find) {
+                Session::set('name', $find['name']);
+                return json(['code'=>'0', 'data'=> ['name'=>$find['name']], 'message'=>'登录正确~']);
+            } else {
+                return json(['code'=>'1', 'message'=>'登录错误~']);
+            }
         } else {
-            $value = Cookie::get('value');
-            return $this->checkpwd($cookieName, $value, true);
+            return json(['code'=>'0', 'data'=> ['name'=>$sessionName], 'message'=>'sssioning~']);
         }
     }
 }

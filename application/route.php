@@ -9,9 +9,12 @@ Route::get([
     'new/:id'  =>  'News/read',
     '/setCookie' =>  'Index/setCookie',
     '/getCookie' =>  'Index/getCookie',
-    '/login' => 'Index/login'
+    '/clearCookie' =>  'Index/clearCookie',
+    '/login' => 'Index/login',
+    '/loginOut' => 'Index/loginOut'
 ]);
 Route::post([
     '/uploads' =>  'Index/uploads',
-    '/login' => 'Index/login'
+    '/login' => 'Index/login',
+    '/loginOut' => 'Index/loginOut'
 ]);

@@ -13,8 +13,10 @@
 
 // 定义应用缓存目录
 define('TEMP_PATH', __DIR__ . '/../runtime/temp/');
+
 // 定义SESSION保存目录
 define('SESSION_PATH', __DIR__ . '/../runtime/session/');
+
 // 定义日志目录
 define('LOG_PATH', __DIR__ . '/../runtime/log/');
 

@@ -207,7 +207,7 @@ return [
         // SESSION_ID的提交变量,解决flash上传跨域
         'var_session_id' => '',
         //过期时间 单位秒
-        'expire' => 3, //过期时间
+        'expire' => 4, //过期时间
         // SESSION 前缀
         'prefix'         => 'think',
         // 驱动方式 支持redis memcache memcached
